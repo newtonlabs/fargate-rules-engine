@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const PORT = 8000;
+const PORT = 8080;
 const HOST = '0.0.0.0';
 
 let RuleEngine = require("node-rules");
