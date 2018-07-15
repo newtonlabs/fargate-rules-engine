@@ -13,7 +13,7 @@ app.use(bodyParser.json({
 }));
 
 app.get('/', function(req, res, next) {
-  res.json({'msg': 'Hello from the rules engine'})
+  res.json({'msg': 'Rules are OK'})
 })
 
 app.listen(PORT, HOST);
