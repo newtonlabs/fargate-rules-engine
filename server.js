@@ -3,7 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const PORT = 8080;
+const PORT = 8000;
 const HOST = '0.0.0.0';
 
 let RuleEngine = require("node-rules");
@@ -13,14 +13,14 @@ let R = new RuleEngine();
 
 /* Add a rule */
 let rule = {
-    "condition": function (R) {
-        R.when(this.transactionTotal < 500);
-    },
-    "consequence": function (R) {
-        this.result = false;
-        this.reason = "The transaction was blocked as it was less than 500";
-        R.stop();
-    }
+  "condition": function (R) {
+    R.when(this.transactionTotal < 500);
+  },
+  "consequence": function (R) {
+    this.result = false;
+    this.reason = "The transaction was blocked as it was less than 500";
+    R.stop();
+  }
 };
 
 /* Register Rule */
@@ -42,13 +42,13 @@ app.get('/rule/:value', function(req, res, next) {
 
   /* Check if the engine blocks it! */
   R.execute(fact, function (data) {
-      if (data.result) {
-        console.log("Valid transaction");
-        res.json({'msg': 'Valid transaction'});
-      } else {
-        console.log("Blocked Reason:" + data.reason);
-        res.json({'msg': 'Blocked reason' + data.reason});
-      }
+    if (data.result) {
+      console.log("Valid transaction");
+      res.json({'msg': 'Valid transaction'});
+    } else {
+      console.log(data.reason);
+      res.json({'msg': data.reason});
+    }
   });
 });
 
